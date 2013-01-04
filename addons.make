@@ -3,3 +3,4 @@ ofxXmlSettings
 ofxDuration
 ofxStateMachine
 ofxRange
+ofxThreadedImageLoader

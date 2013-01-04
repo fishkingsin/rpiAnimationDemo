@@ -31,7 +31,8 @@
  */
 #pragma once
 #include "ofMain.h"
-#include "ofxImageSequence.h"
+#include "ofImageSequence.h"
+#include "ofxThreadedImageLoader.h"
 class SharedData
 {
 public:
@@ -43,9 +44,10 @@ public:
 	string str;
 	bool drawRect;
 	float rot,frame;
-	ofxImageSequence sequence;
+	ofImageSequence sequence;
 	bool bDraw1,bDraw2,bDraw3,bDraw4;
 	ofImage img1,img2,img3,img4;
 	bool toggles[20];
 	ofPoint scroll;
+	float spin;
 };

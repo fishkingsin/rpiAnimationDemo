@@ -19,11 +19,12 @@ public:
 	void draw()
 	{
 		
-//		int r = getSharedData().backgroundColor.r;
-//		int g = getSharedData().backgroundColor.g;
-//		int b = getSharedData().backgroundColor.b;
+		//		int r = getSharedData().backgroundColor.r;
+		//		int g = getSharedData().backgroundColor.g;
+		//		int b = getSharedData().backgroundColor.b;
 		ofSetColor(ofColor::white);
-		getSharedData().sequence.getFrameAtPercent(getSharedData().frame)->draw(0,0,ofGetWidth(),ofGetHeight());
+		getSharedData().sequence.frameIndex = int(getSharedData().sequence.getLength()*getSharedData().frame);
+		getSharedData().sequence.draw(0,0,ofGetWidth(),ofGetHeight());
 		ofPushStyle();
 		ofSetColor(getSharedData().backgroundColor);
 		getSharedData().font.drawString(getName(), ofGetWidth() >> 1, ofGetHeight() >> 1);
@@ -37,17 +38,124 @@ public:
 class Panel2 : public Apex::ofxState<SharedData>
 {
 public:
+	ofxThreadedImageLoader loader;
+	
+	float width,height,dx;
+	
+	ofRectangle rect;
+	int col,row;
+	ofRectangle screenRect;
+	struct ImageData
+	{
+	public:
+		ofImage* image;
+		ofPoint* pt;
+		float alpha;
+	};
+	vector<ImageData*> imagesData;
+	
+	void setup()
+	{
+		
+		width = 10800;
+		height = ofGetHeight();
+		rect.width = 270;
+		rect.height = 270;
+		col  =width/rect.width;
+		row  =height/rect.height;
+		
+		for(int y = 0 ; y < row ; y++)
+		{
+			for(int x = 0 ; x < col ; x++)
+			{
+				ofPoint* pt = new ofPoint(x*rect.width,y*rect.height);
+				ofImage* img = new ofImage();
+				ImageData* data = new ImageData();
+				
+				data->pt = pt;
+				data->image = img;
+//				loader.loadFromDisk(data->image , "of0.png");
+
+				imagesData.push_back(data);
+			}
+		}
+		screenRect.set(-100,-100,ofGetWidth()+100,ofGetHeight()+100);
+		loader.startThread(false, false);
+	}
 	void update(){
+		
+		dx =  getSharedData().spin*-(width-ofGetWidth());
+		int i = 0 ;
+		vector<ImageData*>::iterator it;
+
+		for(it=imagesData.begin() ; it!=imagesData.end() ; it++ )
+		{
+			ImageData* d = *it;
+//			ofImage *img = d->image;
+			ofPoint * p = d->pt;
+			if(screenRect.inside(p->x+dx, p->y) )
+			{
+				
+				if(d->image==NULL)
+				{
+					d->image = new ofImage();
+					char name[256];
+					sprintf(name,"pano/%04d.png",i);
+					
+					loader.loadFromDisk(d->image, name);
+					
+				}
+				
+				if(d->alpha<255)d->alpha+=5;
+			}
+			else
+			{
+				if(d->image!=NULL)
+				{
+					d->image->~ofImage();
+					d->image = NULL;
+				}
+				d->alpha = 0;
+
+			}
+			i++;
+			i%=160;
+		}
 	}
 	void draw()
 	{
 		ofBackground(255, 0, 0);
 		getSharedData().font.drawString(getName(), ofGetWidth() >> 1, ofGetHeight() >> 1);
-//		ofPushStyle();
-//		ofSetColor(128);
-//		ofFill();
-//		ofCircle(ofGetWidth() >> 1, ofGetHeight() >> 1,getSharedData().circleSize);
-//		ofPopStyle();
+		ofPushMatrix();
+		ofTranslate(dx,0);
+		vector<ImageData*>::iterator it;
+		
+		for(it=imagesData.begin() ; it!=imagesData.end() ; it++ )
+		{
+			ImageData* d = *it;
+			ofImage *img = d->image;
+			ofPoint * p = d->pt;
+
+			if(screenRect.inside(p->x+dx, p->y))
+			{
+				ofPushStyle();
+				ofEnableAlphaBlending();
+				ofSetColor(255,d->alpha);
+				ofNoFill();
+				ofRect(p->x+5,p->y+5,rect.width-10,rect.height-10);
+				if(img!=NULL)
+				{
+					if(img->isAllocated())img->draw(p->x,p->y,rect.width,rect.height);
+				}
+				ofPopStyle();
+			}
+		}
+		ofPopMatrix();
+		//		ofPushStyle();
+		//		ofSetColor(128);
+		//		ofFill();
+		//		ofCircle(ofGetWidth() >> 1, ofGetHeight() >> 1,getSharedData().circleSize);
+		//		ofPopStyle();
 		
 		if(getSharedData().drawRect)getSharedData().font.drawString("I am triggered by LABEL BUTTON", 0, (ofGetHeight() >> 1)+50);
 	}

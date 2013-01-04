@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0546d1a38e13bd319cc9755b5ca7e1a0 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9bf3aa0d4faa89d0f8a0e545403162be /* OscReceivedElements.cpp */; };
 		1B0EE0271695757F009DE7C4 /* ofxImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B0EE01E1695757F009DE7C4 /* ofxImageSequence.cpp */; };
+		1B81ABBB1696882A0097FFE3 /* ofxThreadedImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B81ABB91696882A0097FFE3 /* ofxThreadedImageLoader.cpp */; };
 		27073aa02d97c328de31c3d513e6b168 /* ofxDuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3473715cfd2bc4514a533238e3b52e1a /* ofxDuration.cpp */; };
 		28090deb5109115003e8f1c540f04092 /* UdpSocketWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5928aa323f5c2690b06c837d8d036f55 /* UdpSocketWin.cpp */; };
 		510cafe035e576a4e1502d52c11243bb /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e6def695b88ba5faaceaa93785a12fd9 /* UdpSocket.cpp */; };
@@ -89,6 +90,10 @@
 		1B1B61E4169432D300275F87 /* ofRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofRange.h; sourceTree = "<group>"; };
 		1B1B61F51694351700275F87 /* SharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedData.h; sourceTree = "<group>"; };
 		1B81AB9B169680360097FFE3 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
+		1B81AB9C169681CE0097FFE3 /* ofImageSequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofImageSequence.h; sourceTree = "<group>"; };
+		1B81ABB71696882A0097FFE3 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		1B81ABB91696882A0097FFE3 /* ofxThreadedImageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThreadedImageLoader.cpp; sourceTree = "<group>"; };
+		1B81ABBA1696882A0097FFE3 /* ofxThreadedImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThreadedImageLoader.h; sourceTree = "<group>"; };
 		1BB754C016943AFD00418D58 /* Panel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Panel.h; sourceTree = "<group>"; };
 		20f35afadaf0068b067e713fa3152568 /* OscReceivedElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscReceivedElements.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.h; sourceTree = SOURCE_ROOT; };
 		23640f57df6c4bb6bfc5da4c2199c7dd /* PacketListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = PacketListener.h; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/PacketListener.h; sourceTree = SOURCE_ROOT; };
@@ -220,6 +225,25 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		1B81ABB61696882A0097FFE3 /* ofxThreadedImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				1B81ABB71696882A0097FFE3 /* install.xml */,
+				1B81ABB81696882A0097FFE3 /* src */,
+			);
+			name = ofxThreadedImageLoader;
+			path = ../../../addons/ofxThreadedImageLoader;
+			sourceTree = "<group>";
+		};
+		1B81ABB81696882A0097FFE3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1B81ABB91696882A0097FFE3 /* ofxThreadedImageLoader.cpp */,
+				1B81ABBA1696882A0097FFE3 /* ofxThreadedImageLoader.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		1f4fb5c423662b96adfdcc0badec1cb0 /* ofxXmlSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +347,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				1B81ABB61696882A0097FFE3 /* ofxThreadedImageLoader */,
 				1B0EDFFF1695757F009DE7C4 /* ofxImageSequence */,
 				1B1B61E1169432D200275F87 /* ofxRange */,
 				e6053ab7fec63d5f83825b880ce53c41 /* ofxOsc */,
@@ -402,6 +427,7 @@
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				1BB754C016943AFD00418D58 /* Panel.h */,
+				1B81AB9C169681CE0097FFE3 /* ofImageSequence.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -588,6 +614,7 @@
 				5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */,
 				27073aa02d97c328de31c3d513e6b168 /* ofxDuration.cpp in Sources */,
 				1B0EE0271695757F009DE7C4 /* ofxImageSequence.cpp in Sources */,
+				1B81ABBB1696882A0097FFE3 /* ofxThreadedImageLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

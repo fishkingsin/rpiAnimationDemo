@@ -11,7 +11,8 @@ void testApp::setup(){
 	stateMachine.getSharedData().img2.loadImage("image2.png");
 	stateMachine.getSharedData().img3.loadImage("image3.png");
 	stateMachine.getSharedData().img4.loadImage("image4.png");
-	stateMachine.getSharedData().sequence.loadSequence("charlie_brown/", "png", 1, 12 , 4);
+	stateMachine.getSharedData().sequence.setup("charlie_brown/");
+	stateMachine.getSharedData().spin = 0;
 	
 	stateMachine.addState(new Panel1());
 	stateMachine.addState(new Panel2());
@@ -78,6 +79,10 @@ void testApp::update(){
 		}
 		else if(m.getAddress() == "/SCROLLABLE/Y"){
 			stateMachine.getSharedData().scroll.y = m.getArgAsFloat(0);
+		}
+		else if(m.getAddress() == "/SPINNER"){
+			
+			stateMachine.getSharedData().spin = m.getArgAsFloat(0);
 		}
 		else if(m.getAddress().find("LABEL_BUTTON_")!=string::npos){
 			ofLogVerbose("LABEL_BUTTON_") << m.getAddress().substr(14,string::npos);
