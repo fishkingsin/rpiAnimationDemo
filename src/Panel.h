@@ -60,8 +60,22 @@ public:
 		ofImage image;
 		ofPoint* pt;
 		float alpha;
+		bool isLoading;
 	};
+	struct ImageEntry
+	{
+		public:
+		ImageEntry() {
+			data = NULL;
+		}
+		ImageData *data;
+		string filename;
+	};
+	
 	vector<ImageData*> imagesData;
+	
+	
+	deque<ImageEntry> images_to_load;
 	
 	void setup()
 	{
@@ -82,6 +96,7 @@ public:
 				ImageData* data = new ImageData();
 				
 				data->pt = pt;
+				data->isLoading = false;
 //				data->image = img;
 				char name[256];
 				//				sprintf(name,"pano/%04d.png",i);
@@ -108,14 +123,19 @@ public:
 			if(screenRect.inside(p->x+dx, p->y) )
 			{
 				
-				if(!d->image.isAllocated())
+				if(!d->image.isAllocated() && !d->isLoading)
 				{
 //					d->image = new ofImage();
 					char name[256];
 					sprintf(name,"pano/%04d.png",i);
-					d->image.loadImage(name);
-					//					loader.loadFromDisk(d->image, name);
+//					d->image.loadImage(name);
+//					loader.loadFromDisk(&d->image, name);
+					ImageEntry entry;
+					d->isLoading = true;
+					entry.data = d;
 					
+					entry.filename = name;
+					images_to_load.push_back(entry);
 				}
 				
 				if(d->alpha<255)d->alpha+=5;
@@ -133,6 +153,20 @@ public:
 			}
 			i++;
 			i%=160;
+		}
+		if(images_to_load.size()>0)
+		{
+		ImageEntry entry = images_to_load.front();
+		if(!entry.data->image.isAllocated())
+		{
+			
+			entry.data->image.loadImage(entry.filename);
+			ofLogVerbose() << entry.filename;
+//			ofLogVerbose("entry size") << images_to_load.size();
+			entry.data->isLoading = false;
+
+		}
+		images_to_load.pop_front();
 		}
 	}
 	void draw()
