@@ -72,7 +72,7 @@ public:
 		rect.height = 270;
 		col  =width/rect.width;
 		row  =height/rect.height;
-		
+		int i =0 ;
 		for(int y = 0 ; y < row ; y++)
 		{
 			for(int x = 0 ; x < col ; x++)
@@ -83,9 +83,12 @@ public:
 				
 				data->pt = pt;
 				data->image = img;
-//				loader.loadFromDisk(data->image , "of0.png");
+				char name[256];
+				sprintf(name,"pano/%04d.png",i);
+				loader.loadFromDisk(data->image , name);
 
 				imagesData.push_back(data);
+				i++;
 			}
 		}
 		screenRect.set(-100,-100,ofGetWidth()+100,ofGetHeight()+100);
@@ -105,9 +108,9 @@ public:
 			if(screenRect.inside(p->x+dx, p->y) )
 			{
 				
-				if(d->image==NULL)
+				if(!d->image->isAllocated())
 				{
-					d->image = new ofImage();
+//					d->image = new ofImage();
 					char name[256];
 					sprintf(name,"pano/%04d.png",i);
 					
@@ -119,11 +122,12 @@ public:
 			}
 			else
 			{
-				if(d->image!=NULL)
-				{
-					d->image->~ofImage();
-					d->image = NULL;
-				}
+//				d->image->
+//				if(d->image!=NULL)
+//				{
+//					d->image->~ofImage();
+//					d->image = NULL;
+//				}
 				d->alpha = 0;
 
 			}
