@@ -2,3 +2,4 @@ ofxOsc
 ofxXmlSettings
 ofxDuration
 ofxStateMachine
+ofxRange
