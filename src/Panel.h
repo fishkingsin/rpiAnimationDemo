@@ -34,7 +34,7 @@ public:
 	{
 		getSharedData().sequence.setup("charlie_brown/");
 	}
-
+	
 	void stateExit()
 	{
 		getSharedData().sequence.exit();
@@ -84,9 +84,9 @@ public:
 				data->pt = pt;
 				data->image = img;
 				char name[256];
-				sprintf(name,"pano/%04d.png",i);
-				loader.loadFromDisk(data->image , name);
-
+				//				sprintf(name,"pano/%04d.png",i);
+				//				loader.loadFromDisk(data->image , name);
+				
 				imagesData.push_back(data);
 				i++;
 			}
@@ -99,22 +99,22 @@ public:
 		dx =  getSharedData().spin*-(width-ofGetWidth());
 		int i = 0 ;
 		vector<ImageData*>::iterator it;
-
+		
 		for(it=imagesData.begin() ; it!=imagesData.end() ; it++ )
 		{
 			ImageData* d = *it;
-//			ofImage *img = d->image;
+			//			ofImage *img = d->image;
 			ofPoint * p = d->pt;
 			if(screenRect.inside(p->x+dx, p->y) )
 			{
 				
-				if(!d->image->isAllocated())
+				if(d->image==NULL)
 				{
-//					d->image = new ofImage();
+					d->image = new ofImage();
 					char name[256];
 					sprintf(name,"pano/%04d.png",i);
-					
-					loader.loadFromDisk(d->image, name);
+					d->image->loadImage(name);
+					//					loader.loadFromDisk(d->image, name);
 					
 				}
 				
@@ -122,14 +122,13 @@ public:
 			}
 			else
 			{
-//				d->image->
-//				if(d->image!=NULL)
-//				{
-//					d->image->~ofImage();
-//					d->image = NULL;
-//				}
+				if(d->image!=NULL)
+				{
+					d->image->~ofImage();
+					d->image = NULL;
+				}
 				d->alpha = 0;
-
+				
 			}
 			i++;
 			i%=160;
@@ -148,7 +147,7 @@ public:
 			ImageData* d = *it;
 			ofImage *img = d->image;
 			ofPoint * p = d->pt;
-
+			
 			if(screenRect.inside(p->x+dx, p->y))
 			{
 				ofPushStyle();
@@ -171,6 +170,20 @@ public:
 		//		ofPopStyle();
 		
 		if(getSharedData().drawRect)getSharedData().font.drawString("I am triggered by LABEL BUTTON", 0, (ofGetHeight() >> 1)+50);
+	}
+	void stateExit()
+	{
+		vector<ImageData*>::iterator it;
+		for(it=imagesData.begin() ; it!=imagesData.end() ; it++ )
+		{
+			ImageData* d = *it;
+			
+			if(d->image!=NULL)
+			{
+				d->image->~ofImage();
+				d->image = NULL;
+			}
+		}
 	}
 	string getName()
 	{
