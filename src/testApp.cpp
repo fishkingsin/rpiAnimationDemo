@@ -7,11 +7,11 @@ void testApp::setup(){
 	stateMachine.getSharedData().lastUpdate = ofGetElapsedTimeMillis();
 	stateMachine.getSharedData().font.loadFont("vag.ttf", 50);
 	
-	stateMachine.getSharedData().img1.loadImage("image1.png");
-	stateMachine.getSharedData().img2.loadImage("image2.png");
-	stateMachine.getSharedData().img3.loadImage("image3.png");
-	stateMachine.getSharedData().img4.loadImage("image4.png");
-	stateMachine.getSharedData().sequence.setup("charlie_brown/");
+//	stateMachine.getSharedData().img1.loadImage("image1.png");
+//	stateMachine.getSharedData().img2.loadImage("image2.png");
+//	stateMachine.getSharedData().img3.loadImage("image3.png");
+//	stateMachine.getSharedData().img4.loadImage("image4.png");
+//	stateMachine.getSharedData().sequence.setup("charlie_brown/");
 	stateMachine.getSharedData().spin = 0;
 	
 	stateMachine.addState(new Panel1());

@@ -11,6 +11,15 @@
 class ofImageSequence
 {
 public:
+	void exit()
+	{
+		while (!images.empty()) {
+			ofImage* img=&images.back();
+			img->clear();
+			img->~ofImage();
+			images.pop_back();
+		}
+	}
 	void setup(string path)
 	{
 //		ofBackground(0);

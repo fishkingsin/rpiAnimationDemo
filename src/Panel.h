@@ -30,6 +30,15 @@ public:
 		getSharedData().font.drawString(getName(), ofGetWidth() >> 1, ofGetHeight() >> 1);
 		ofPopStyle();
 	}
+	void stateEnter()
+	{
+		getSharedData().sequence.setup("charlie_brown/");
+	}
+
+	void stateExit()
+	{
+		getSharedData().sequence.exit();
+	}
 	string getName()
 	{
 		return "PANEL1";
@@ -195,6 +204,21 @@ public:
 		ofRectangle rect = getSharedData().font.getStringBoundingBox(getSharedData().str, 0, 0);
 		getSharedData().font.drawString(getSharedData().str, (ofGetWidth() >> 1)-(rect.width*0.5), ofGetHeight() >> 1);
 		ofPopMatrix();
+	}
+	void stateEnter()
+	{
+		getSharedData().img1.loadImage("image1.png");
+		getSharedData().img2.loadImage("image2.png");
+		getSharedData().img3.loadImage("image3.png");
+		getSharedData().img4.loadImage("image4.png");
+	}
+	
+	void stateExit()
+	{
+		getSharedData().img1.clear();
+		getSharedData().img2.clear();
+		getSharedData().img3.clear();
+		getSharedData().img4.clear();
 	}
 	string getName()
 	{
