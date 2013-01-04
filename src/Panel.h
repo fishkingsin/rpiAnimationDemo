@@ -138,7 +138,7 @@ public:
 					images_to_load.push_back(entry);
 				}
 				
-				if(d->alpha<255)d->alpha+=5;
+				if(d->alpha<255 && d->image.isAllocated())d->alpha+=5;
 			}
 			else
 			{
@@ -164,7 +164,7 @@ public:
 			ofLogVerbose() << entry.filename;
 //			ofLogVerbose("entry size") << images_to_load.size();
 			entry.data->isLoading = false;
-
+			d->alpha=0;
 		}
 		images_to_load.pop_front();
 		}
