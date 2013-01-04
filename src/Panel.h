@@ -164,7 +164,7 @@ public:
 			ofLogVerbose() << entry.filename;
 //			ofLogVerbose("entry size") << images_to_load.size();
 			entry.data->isLoading = false;
-			d->alpha=0;
+			entry.data->alpha=0;
 		}
 		images_to_load.pop_front();
 		}
