@@ -43,11 +43,11 @@ public:
 	{
 		ofBackground(255, 0, 0);
 		getSharedData().font.drawString(getName(), ofGetWidth() >> 1, ofGetHeight() >> 1);
-		ofPushStyle();
-		ofSetColor(128);
-		ofFill();
-		ofCircle(ofGetWidth() >> 1, ofGetHeight() >> 1,getSharedData().circleSize);
-		ofPopStyle();
+//		ofPushStyle();
+//		ofSetColor(128);
+//		ofFill();
+//		ofCircle(ofGetWidth() >> 1, ofGetHeight() >> 1,getSharedData().circleSize);
+//		ofPopStyle();
 		
 		if(getSharedData().drawRect)getSharedData().font.drawString("I am triggered by LABEL BUTTON", 0, (ofGetHeight() >> 1)+50);
 	}
@@ -81,6 +81,7 @@ public:
 		
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() >> 1, ofGetHeight() >> 1);
+		ofScale(getSharedData().circleSize, getSharedData().circleSize);
 		ofRotateZ(getSharedData().rot);
 		ofTranslate(-ofGetWidth() >> 1, -ofGetHeight() >> 1);
 		ofRectangle rect = getSharedData().font.getStringBoundingBox(getSharedData().str, 0, 0);
