@@ -57,7 +57,7 @@ public:
 	struct ImageData
 	{
 	public:
-		ofImage* image;
+		ofImage image;
 		ofPoint* pt;
 		float alpha;
 	};
@@ -78,11 +78,11 @@ public:
 			for(int x = 0 ; x < col ; x++)
 			{
 				ofPoint* pt = new ofPoint(x*rect.width,y*rect.height);
-				ofImage* img = new ofImage();
+//				ofImage* img = new ofImage();
 				ImageData* data = new ImageData();
 				
 				data->pt = pt;
-				data->image = img;
+//				data->image = img;
 				char name[256];
 				//				sprintf(name,"pano/%04d.png",i);
 				//				loader.loadFromDisk(data->image , name);
@@ -108,12 +108,12 @@ public:
 			if(screenRect.inside(p->x+dx, p->y) )
 			{
 				
-				if(d->image==NULL)
+				if(!d->image.isAllocated())
 				{
-					d->image = new ofImage();
+//					d->image = new ofImage();
 					char name[256];
 					sprintf(name,"pano/%04d.png",i);
-					d->image->loadImage(name);
+					d->image.loadImage(name);
 					//					loader.loadFromDisk(d->image, name);
 					
 				}
@@ -122,11 +122,12 @@ public:
 			}
 			else
 			{
-				if(d->image!=NULL)
-				{
-					d->image->~ofImage();
-					d->image = NULL;
-				}
+				if(d->image.isAllocated())d->image.clear();
+//				if(d->image!=NULL)
+//				{
+//					d->image->~ofImage();
+//					d->image = NULL;
+//				}
 				d->alpha = 0;
 				
 			}
@@ -145,7 +146,7 @@ public:
 		for(it=imagesData.begin() ; it!=imagesData.end() ; it++ )
 		{
 			ImageData* d = *it;
-			ofImage *img = d->image;
+			ofImage *img = &d->image;
 			ofPoint * p = d->pt;
 			
 			if(screenRect.inside(p->x+dx, p->y))
@@ -171,6 +172,33 @@ public:
 		
 		if(getSharedData().drawRect)getSharedData().font.drawString("I am triggered by LABEL BUTTON", 0, (ofGetHeight() >> 1)+50);
 	}
+	void stateEnter()
+	{
+		vector < ImageData*>::iterator it;
+		int i = 0;
+		for(it=imagesData.begin() ; it!=imagesData.end() ; it++ )
+		{
+			ImageData* d = *it;
+			
+			ofPoint * p = d->pt;
+			if(screenRect.inside(p->x+dx, p->y) )
+			{
+				
+//				if(d->image==NULL)
+				{
+//					d->image = new ofImage();
+					char name[256];
+					sprintf(name,"pano/%04d.png",i);
+					d->image.loadImage(name);
+					//					loader.loadFromDisk(d->image, name);
+					
+				}
+				
+				if(d->alpha<255)d->alpha+=5;
+			}
+			i++;
+		}
+	}
 	void stateExit()
 	{
 		vector<ImageData*>::iterator it;
@@ -178,10 +206,11 @@ public:
 		{
 			ImageData* d = *it;
 			
-			if(d->image!=NULL)
+//			if(d->image!=NULL)
 			{
-				d->image->~ofImage();
-				d->image = NULL;
+				d->image.clear();
+//				d->image->~ofImage();
+//				d->image = NULL;
 			}
 		}
 	}
