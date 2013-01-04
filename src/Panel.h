@@ -92,7 +92,7 @@ public:
 			}
 		}
 		screenRect.set(-100,-100,ofGetWidth()+100,ofGetHeight()+100);
-		loader.startThread(false, false);
+		loader.startThread(true, false);
 	}
 	void update(){
 		

@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	ofSetLogLevel(OF_LOG_VERBOSE);
+	ofSetLogLevel(OF_LOG_ERROR);
 	stateMachine.getSharedData().counter = 0;
 	stateMachine.getSharedData().lastUpdate = ofGetElapsedTimeMillis();
 	stateMachine.getSharedData().font.loadFont("vag.ttf", 50);
