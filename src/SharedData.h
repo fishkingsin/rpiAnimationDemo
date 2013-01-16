@@ -50,4 +50,5 @@ public:
 	bool toggles[20];
 	ofPoint scroll;
 	float spin;
+	ofxTurboJpeg turboJpeg;
 };

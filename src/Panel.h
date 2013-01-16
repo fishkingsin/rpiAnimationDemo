@@ -48,7 +48,7 @@ class Panel2 : public Apex::ofxState<SharedData>
 {
 public:
 	ofxThreadedImageLoader loader;
-	ofxTurboJpeg turboJpeg;
+	
 	float width,height,dx;
 	
 	ofRectangle rect;
@@ -164,7 +164,7 @@ public:
 				
 				if(!entry.data->image.isAllocated())
 				{
-					turboJpeg.load(entry.filename,entry.data->image);
+					getSharedData().turboJpeg.load(entry.filename,entry.data->image);
 					//			entry.data->image.loadImage(entry.filename);
 					ofLogVerbose() << entry.filename;
 					//			ofLogVerbose("entry size") << images_to_load.size();
@@ -194,11 +194,12 @@ public:
 			{
 				ofPushStyle();
 				ofEnableAlphaBlending();
-				ofSetColor(255,10);
+				ofSetColor(255,125);
 				ofNoFill();
 				ofRect(p->x,p->y,rect.width,rect.height);
 				if(img!=NULL)
 				{
+					ofSetColor(255,d->alpha);
 					if(img->isAllocated())img->draw(p->x,p->y,rect.width,rect.height);
 				}
 				ofPopStyle();
@@ -230,8 +231,8 @@ public:
 					//					d->image = new ofImage();
 					char name[256];
 					sprintf(name,"pano/%04d.jpg",i);
-					d->image.loadImage(name);
-					turboJpeg.load(name,d->image);
+//					d->image.loadImage(name);
+					getSharedData().turboJpeg.load(name,d->image);
 					//					loader.loadFromDisk(d->image, name);
 					
 				}
@@ -295,10 +296,14 @@ public:
 	}
 	void stateEnter()
 	{
-		getSharedData().img1.loadImage("image1.png");
-		getSharedData().img2.loadImage("image2.png");
-		getSharedData().img3.loadImage("image3.png");
-		getSharedData().img4.loadImage("image4.png");
+		getSharedData().turboJpeg.load("image1.png",getSharedData().img1);
+		getSharedData().turboJpeg.load("image2.png",getSharedData().img2);
+		getSharedData().turboJpeg.load("image3.png",getSharedData().img3);
+		getSharedData().turboJpeg.load("image4.png",getSharedData().img4);
+//		getSharedData().img1.loadImage("image1.png");
+//		getSharedData().img2.loadImage("image2.png");
+//		getSharedData().img3.loadImage("image3.png");
+//		getSharedData().img4.loadImage("image4.png");
 	}
 	
 	void stateExit()

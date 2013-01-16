@@ -8,9 +8,11 @@
 
 #pragma once
 #include "ofMain.h"
+#include "ofxTurboJpeg.h"
 class ofImageSequence
 {
 public:
+	
 	void exit()
 	{
 		while (!images.empty()) {
@@ -29,6 +31,7 @@ public:
 		// we know that they are named in seq
 		ofDirectory dir;
 		dir.allowExt("png");
+		dir.allowExt("jpg");
 		int nFiles = dir.listDir(path);
 		if(nFiles) {
 			
@@ -37,7 +40,8 @@ public:
 				// add the image to the vector
 				string filePath = dir.getPath(i);
 				images.push_back(ofImage());
-				images.back().loadImage(filePath);
+				turboJpeg.load(filePath,images.back());
+//				images.back().loadImage(filePath);
 				
 			}
 			
@@ -111,5 +115,6 @@ public:
 //    float sequenceFPS;
 //    bool  bFrameIndependent;
     vector <ofImage> images;
+	ofxTurboJpeg turboJpeg;
 };
 
