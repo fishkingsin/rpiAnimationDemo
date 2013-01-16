@@ -58,6 +58,7 @@ public:
 	{
 	public:
 		ofImage image;
+		ofImage thumb;
 		ofPoint* pt;
 		float alpha;
 		bool isLoading;
@@ -106,7 +107,7 @@ public:
 				i++;
 			}
 		}
-		screenRect.set(-200,-200,ofGetWidth()+200,ofGetHeight()+200);
+		screenRect.set(-270*2,-50,ofGetWidth()+270*2,ofGetHeight()+50);
 		loader.startThread(true, false);
 	}
 	void update(){
@@ -188,20 +189,30 @@ public:
 		{
 			ImageData* d = *it;
 			ofImage *img = &d->image;
+			ofImage *thumb = &d->thumb;
 			ofPoint * p = d->pt;
 			
 			if(screenRect.inside(p->x+dx, p->y))
 			{
+
+				ofPushStyle();
+				ofDisableAlphaBlending();
+				ofSetColor(255);
+				thumb->draw(p->x,p->y,rect.width,rect.height);
+				ofPopStyle();
+				
 				ofPushStyle();
 				ofEnableAlphaBlending();
-				ofSetColor(255,125);
-				ofNoFill();
-				ofRect(p->x,p->y,rect.width,rect.height);
+//				ofSetColor(255,125);
+//				ofNoFill();
+//				ofRect(p->x,p->y,rect.width,rect.height);
+				
 				if(img!=NULL)
 				{
 					ofSetColor(255,d->alpha);
 					if(img->isAllocated())img->draw(p->x,p->y,rect.width,rect.height);
 				}
+				
 				ofPopStyle();
 			}
 		}
@@ -223,17 +234,22 @@ public:
 			ImageData* d = *it;
 			
 			ofPoint * p = d->pt;
+			char name[256];
+			sprintf(name,"pano_thumbnail/%04d.jpg",i);
+			getSharedData().turboJpeg.load(name,d->thumb);
+
 			if(screenRect.inside(p->x+dx, p->y) )
 			{
 				
 				//				if(d->image==NULL)
 				{
 					//					d->image = new ofImage();
-					char name[256];
+//					char name[256];
 					sprintf(name,"pano/%04d.jpg",i);
 //					d->image.loadImage(name);
 					getSharedData().turboJpeg.load(name,d->image);
-					//					loader.loadFromDisk(d->image, name);
+					
+										
 					
 				}
 				

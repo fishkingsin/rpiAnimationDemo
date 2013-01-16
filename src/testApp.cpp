@@ -2,16 +2,17 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-//	ofSetLogLevel(OF_LOG_VERBOSE);
+	glDisable(GL_DEPTH_TEST);
+	//	ofSetLogLevel(OF_LOG_VERBOSE);
 	stateMachine.getSharedData().counter = 0;
 	stateMachine.getSharedData().lastUpdate = ofGetElapsedTimeMillis();
 	stateMachine.getSharedData().font.loadFont("vag.ttf", 50);
 	
-//	stateMachine.getSharedData().img1.loadImage("image1.png");
-//	stateMachine.getSharedData().img2.loadImage("image2.png");
-//	stateMachine.getSharedData().img3.loadImage("image3.png");
-//	stateMachine.getSharedData().img4.loadImage("image4.png");
-//	stateMachine.getSharedData().sequence.setup("charlie_brown/");
+	//	stateMachine.getSharedData().img1.loadImage("image1.png");
+	//	stateMachine.getSharedData().img2.loadImage("image2.png");
+	//	stateMachine.getSharedData().img3.loadImage("image3.png");
+	//	stateMachine.getSharedData().img4.loadImage("image4.png");
+	//	stateMachine.getSharedData().sequence.setup("charlie_brown/");
 	stateMachine.getSharedData().spin = 0;
 	
 	stateMachine.addState(new Panel1());
@@ -70,10 +71,10 @@ void testApp::update(){
 		}
 		else if(m.getAddress() == "/NORTH SOUTH"){
 			stateMachine.getSharedData().circleSize = m.getArgAsFloat(0);
-//			ofLogVerbose(m.getAddress()) << m.getArgAsFloat(0);
+			//			ofLogVerbose(m.getAddress()) << m.getArgAsFloat(0);
 		}
 		else if(m.getAddress() == "/FRAME"){
-//			ofLogVerbose("FRAME") << m.getArgAsFloat(0);
+			//			ofLogVerbose("FRAME") << m.getArgAsFloat(0);
 			stateMachine.getSharedData().frame = m.getArgAsFloat(0);
 			//			ofLogVerbose(m.getAddress()) << m.getArgAsFloat(0);
 		}
