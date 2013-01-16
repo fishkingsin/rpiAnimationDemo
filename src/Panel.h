@@ -296,10 +296,10 @@ public:
 	}
 	void stateEnter()
 	{
-		getSharedData().turboJpeg.load("image1.png",getSharedData().img1);
-		getSharedData().turboJpeg.load("image2.png",getSharedData().img2);
-		getSharedData().turboJpeg.load("image3.png",getSharedData().img3);
-		getSharedData().turboJpeg.load("image4.png",getSharedData().img4);
+		getSharedData().turboJpeg.load("image1.jpg",getSharedData().img1);
+		getSharedData().turboJpeg.load("image2.jpg",getSharedData().img2);
+		getSharedData().turboJpeg.load("image3.jpg",getSharedData().img3);
+		getSharedData().turboJpeg.load("image4.jpg",getSharedData().img4);
 //		getSharedData().img1.loadImage("image1.png");
 //		getSharedData().img2.loadImage("image2.png");
 //		getSharedData().img3.loadImage("image3.png");
