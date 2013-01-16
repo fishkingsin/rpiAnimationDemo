@@ -194,9 +194,9 @@ public:
 			{
 				ofPushStyle();
 				ofEnableAlphaBlending();
-				ofSetColor(255,d->alpha);
+				ofSetColor(255,10);
 				ofNoFill();
-				ofRect(p->x+5,p->y+5,rect.width-10,rect.height-10);
+				ofRect(p->x,p->y,rect.width,rect.height);
 				if(img!=NULL)
 				{
 					if(img->isAllocated())img->draw(p->x,p->y,rect.width,rect.height);
