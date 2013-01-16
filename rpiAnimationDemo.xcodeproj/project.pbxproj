@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0546d1a38e13bd319cc9755b5ca7e1a0 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9bf3aa0d4faa89d0f8a0e545403162be /* OscReceivedElements.cpp */; };
 		1B0EE0271695757F009DE7C4 /* ofxImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B0EE01E1695757F009DE7C4 /* ofxImageSequence.cpp */; };
+		1B63946016A6ABD700CE004F /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B63945416A6ABD700CE004F /* libturbojpeg.dylib */; };
+		1B63946116A6ABD700CE004F /* ofxTurboJpeg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B63945716A6ABD700CE004F /* ofxTurboJpeg.cpp */; };
+		1B63946616A6AC3300CE004F /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B63945416A6ABD700CE004F /* libturbojpeg.dylib */; };
 		1B81ABBB1696882A0097FFE3 /* ofxThreadedImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B81ABB91696882A0097FFE3 /* ofxThreadedImageLoader.cpp */; };
 		27073aa02d97c328de31c3d513e6b168 /* ofxDuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3473715cfd2bc4514a533238e3b52e1a /* ofxDuration.cpp */; };
 		28090deb5109115003e8f1c540f04092 /* UdpSocketWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5928aa323f5c2690b06c837d8d036f55 /* UdpSocketWin.cpp */; };
@@ -67,6 +70,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1B63946516A6AC2100CE004F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1B63946616A6AC3300CE004F /* libturbojpeg.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4C2427710CC5ABF004149E2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,6 +102,10 @@
 		1B1B61E2169432D300275F87 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1B1B61E4169432D300275F87 /* ofRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofRange.h; sourceTree = "<group>"; };
 		1B1B61F51694351700275F87 /* SharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedData.h; sourceTree = "<group>"; };
+		1B63945116A6ABD700CE004F /* turbojpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = turbojpeg.h; sourceTree = "<group>"; };
+		1B63945416A6ABD700CE004F /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.dylib; sourceTree = "<group>"; };
+		1B63945716A6ABD700CE004F /* ofxTurboJpeg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTurboJpeg.cpp; sourceTree = "<group>"; };
+		1B63945816A6ABD700CE004F /* ofxTurboJpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTurboJpeg.h; sourceTree = "<group>"; };
 		1B81AB9B169680360097FFE3 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
 		1B81AB9C169681CE0097FFE3 /* ofImageSequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofImageSequence.h; sourceTree = "<group>"; };
 		1B81ABB71696882A0097FFE3 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
@@ -183,6 +200,7 @@
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
+				1B63946016A6ABD700CE004F /* libturbojpeg.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +239,66 @@
 			isa = PBXGroup;
 			children = (
 				1B1B61E4169432D300275F87 /* ofRange.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1B63943A16A6ABD700CE004F /* ofxTurboJpeg */ = {
+			isa = PBXGroup;
+			children = (
+				1B63944E16A6ABD700CE004F /* libs */,
+				1B63945616A6ABD700CE004F /* src */,
+			);
+			name = ofxTurboJpeg;
+			path = ../../../addons/ofxTurboJpeg;
+			sourceTree = "<group>";
+		};
+		1B63944E16A6ABD700CE004F /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				1B63944F16A6ABD700CE004F /* turbo-jpeg */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		1B63944F16A6ABD700CE004F /* turbo-jpeg */ = {
+			isa = PBXGroup;
+			children = (
+				1B63945016A6ABD700CE004F /* include */,
+				1B63945216A6ABD700CE004F /* lib */,
+			);
+			path = "turbo-jpeg";
+			sourceTree = "<group>";
+		};
+		1B63945016A6ABD700CE004F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				1B63945116A6ABD700CE004F /* turbojpeg.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		1B63945216A6ABD700CE004F /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				1B63945316A6ABD700CE004F /* osx */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		1B63945316A6ABD700CE004F /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				1B63945416A6ABD700CE004F /* libturbojpeg.dylib */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		1B63945616A6ABD700CE004F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1B63945716A6ABD700CE004F /* ofxTurboJpeg.cpp */,
+				1B63945816A6ABD700CE004F /* ofxTurboJpeg.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -347,6 +425,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				1B63943A16A6ABD700CE004F /* ofxTurboJpeg */,
 				1B81ABB61696882A0097FFE3 /* ofxThreadedImageLoader */,
 				1B0EDFFF1695757F009DE7C4 /* ofxImageSequence */,
 				1B1B61E1169432D200275F87 /* ofxRange */,
@@ -520,6 +599,7 @@
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
+				1B63946516A6AC2100CE004F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -615,6 +695,7 @@
 				27073aa02d97c328de31c3d513e6b168 /* ofxDuration.cpp in Sources */,
 				1B0EE0271695757F009DE7C4 /* ofxImageSequence.cpp in Sources */,
 				1B81ABBB1696882A0097FFE3 /* ofxThreadedImageLoader.cpp in Sources */,
+				1B63946116A6ABD700CE004F /* ofxTurboJpeg.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,7 +883,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = rpiAnimationDemoDebug;
 				WRAPPER_EXTENSION = app;
@@ -888,7 +971,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = rpiAnimationDemo;
 				WRAPPER_EXTENSION = app;

@@ -4,3 +4,4 @@ ofxDuration
 ofxStateMachine
 ofxRange
 ofxThreadedImageLoader
+ofxTurboJpeg

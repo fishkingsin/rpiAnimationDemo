@@ -10,7 +10,7 @@
 
 #include "ofxState.h"
 #include "SharedData.h"
-
+#include "ofxTurboJpeg.h"
 class Panel1 : public Apex::ofxState<SharedData>
 {
 public:
@@ -48,7 +48,7 @@ class Panel2 : public Apex::ofxState<SharedData>
 {
 public:
 	ofxThreadedImageLoader loader;
-	
+	ofxTurboJpeg turboJpeg;
 	float width,height,dx;
 	
 	ofRectangle rect;
@@ -64,7 +64,7 @@ public:
 	};
 	struct ImageEntry
 	{
-		public:
+	public:
 		ImageEntry() {
 			data = NULL;
 		}
@@ -92,12 +92,12 @@ public:
 			for(int x = 0 ; x < col ; x++)
 			{
 				ofPoint* pt = new ofPoint(x*rect.width,y*rect.height);
-//				ofImage* img = new ofImage();
+				//				ofImage* img = new ofImage();
 				ImageData* data = new ImageData();
 				
 				data->pt = pt;
 				data->isLoading = false;
-//				data->image = img;
+				//				data->image = img;
 				char name[256];
 				//				sprintf(name,"pano/%04d.png",i);
 				//				loader.loadFromDisk(data->image , name);
@@ -106,7 +106,7 @@ public:
 				i++;
 			}
 		}
-		screenRect.set(-100,-100,ofGetWidth()+100,ofGetHeight()+100);
+		screenRect.set(-200,-200,ofGetWidth()+200,ofGetHeight()+200);
 		loader.startThread(true, false);
 	}
 	void update(){
@@ -125,11 +125,11 @@ public:
 				
 				if(!d->image.isAllocated() && !d->isLoading)
 				{
-//					d->image = new ofImage();
+					//					d->image = new ofImage();
 					char name[256];
-					sprintf(name,"pano/%04d.png",i);
-//					d->image.loadImage(name);
-//					loader.loadFromDisk(&d->image, name);
+					sprintf(name,"pano/%04d.jpg",i);
+					//					d->image.loadImage(name);
+					//					loader.loadFromDisk(&d->image, name);
 					ImageEntry entry;
 					d->isLoading = true;
 					entry.data = d;
@@ -143,30 +143,37 @@ public:
 			else
 			{
 				if(d->image.isAllocated())d->image.clear();
-//				if(d->image!=NULL)
-//				{
-//					d->image->~ofImage();
-//					d->image = NULL;
-//				}
+				//				if(d->image!=NULL)
+				//				{
+				//					d->image->~ofImage();
+				//					d->image = NULL;
+				//				}
 				d->alpha = 0;
 				
 			}
 			i++;
 			i%=160;
 		}
-		if(images_to_load.size()>0)
+		while (images_to_load.size()>0)
 		{
-		ImageEntry entry = images_to_load.front();
-		if(!entry.data->image.isAllocated())
-		{
-			
-			entry.data->image.loadImage(entry.filename);
-			ofLogVerbose() << entry.filename;
-//			ofLogVerbose("entry size") << images_to_load.size();
+			ImageEntry entry = images_to_load.front();
+			ofPoint * p = entry.data->pt;
 			entry.data->isLoading = false;
-			entry.data->alpha=0;
-		}
-		images_to_load.pop_front();
+			if(screenRect.inside(p->x+dx, p->y))
+			{
+				
+				if(!entry.data->image.isAllocated())
+				{
+					turboJpeg.load(entry.filename,entry.data->image);
+					//			entry.data->image.loadImage(entry.filename);
+					ofLogVerbose() << entry.filename;
+					//			ofLogVerbose("entry size") << images_to_load.size();
+					entry.data->isLoading = false;
+					entry.data->alpha=0;
+					break;
+				}
+			}
+			images_to_load.pop_front();
 		}
 	}
 	void draw()
@@ -218,12 +225,13 @@ public:
 			if(screenRect.inside(p->x+dx, p->y) )
 			{
 				
-//				if(d->image==NULL)
+				//				if(d->image==NULL)
 				{
-//					d->image = new ofImage();
+					//					d->image = new ofImage();
 					char name[256];
-					sprintf(name,"pano/%04d.png",i);
+					sprintf(name,"pano/%04d.jpg",i);
 					d->image.loadImage(name);
+					turboJpeg.load(name,d->image);
 					//					loader.loadFromDisk(d->image, name);
 					
 				}
@@ -240,11 +248,11 @@ public:
 		{
 			ImageData* d = *it;
 			
-//			if(d->image!=NULL)
+			//			if(d->image!=NULL)
 			{
 				d->image.clear();
-//				d->image->~ofImage();
-//				d->image = NULL;
+				//				d->image->~ofImage();
+				//				d->image = NULL;
 			}
 		}
 	}
