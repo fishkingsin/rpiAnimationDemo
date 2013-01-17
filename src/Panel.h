@@ -58,26 +58,36 @@ public:
 	{
 	public:
 		ofImage image;
-		ofImage thumb;
 		ofPoint* pt;
 		float alpha;
 		bool isLoading;
 	};
+	enum LoadType{
+		THUMBNAIL,
+		ORIGINAL,
+		DONE
+		
+	};
+
 	struct ImageEntry
 	{
 	public:
 		ImageEntry() {
 			data = NULL;
+			type = THUMBNAIL;
+			index = 0;
 		}
 		ImageData *data;
 		string filename;
+		int index;
+		LoadType type;
 	};
 	
 	vector<ImageData*> imagesData;
 	
 	
 	deque<ImageEntry> images_to_load;
-	
+	deque<ImageEntry> ori_images_to_load;
 	void setup()
 	{
 		
@@ -126,12 +136,13 @@ public:
 				
 				if(!d->image.isAllocated() && !d->isLoading)
 				{
-					//					d->image = new ofImage();
 					char name[256];
-					sprintf(name,"pano/%04d.jpg",i);
-					//					d->image.loadImage(name);
-					//					loader.loadFromDisk(&d->image, name);
+//					sprintf(name,"pano/%04d.jpg",i);
+					sprintf(name,"pano_thumbnail/%04d.jpg",i);
+
 					ImageEntry entry;
+					entry.index = i;
+					entry.type == THUMBNAIL;
 					d->isLoading = true;
 					entry.data = d;
 					
@@ -144,16 +155,28 @@ public:
 			else
 			{
 				if(d->image.isAllocated())d->image.clear();
-				//				if(d->image!=NULL)
-				//				{
-				//					d->image->~ofImage();
-				//					d->image = NULL;
-				//				}
-				d->alpha = 0;
+//				d->alpha = 0;
 				
 			}
 			i++;
 			i%=160;
+		}
+		if(images_to_load.empty() && !ori_images_to_load.empty())
+		{
+			ImageEntry entry = ori_images_to_load.front();
+			ofPoint * p = entry.data->pt;
+			entry.data->isLoading = false;
+			if(screenRect.inside(p->x+dx, p->y))
+			{
+				
+				if(entry.type == ORIGINAL)
+				{
+					getSharedData().turboJpeg.load(entry.filename,entry.data->image);
+					entry.data->isLoading = false;
+					entry.type == DONE;
+				}
+			}
+			ori_images_to_load.pop_front();
 		}
 		while (images_to_load.size()>0)
 		{
@@ -165,14 +188,29 @@ public:
 				
 				if(!entry.data->image.isAllocated())
 				{
+					
 					getSharedData().turboJpeg.load(entry.filename,entry.data->image);
-					//			entry.data->image.loadImage(entry.filename);
 					ofLogVerbose() << entry.filename;
-					//			ofLogVerbose("entry size") << images_to_load.size();
 					entry.data->isLoading = false;
-					entry.data->alpha=0;
+//					entry.data->alpha=0;
+					entry.type == DONE;
+					if(entry.type == THUMBNAIL)
+					{
+						char name[256];
+						sprintf(name,"pano/%04d.jpg",entry.index);
+						
+						ImageEntry _entry;
+						_entry.index = entry.index;
+						_entry.type = ORIGINAL;
+						_entry.data = entry.data;
+						
+						_entry.filename = name;
+						ori_images_to_load.push_back(_entry);
+					}
+				
 					break;
 				}
+				
 			}
 			images_to_load.pop_front();
 		}
@@ -189,24 +227,14 @@ public:
 		{
 			ImageData* d = *it;
 			ofImage *img = &d->image;
-			ofImage *thumb = &d->thumb;
+			
 			ofPoint * p = d->pt;
 			
 			if(screenRect.inside(p->x+dx, p->y))
 			{
 
 				ofPushStyle();
-				ofDisableAlphaBlending();
-				ofSetColor(255);
-				if(thumb->isAllocated())thumb->draw(p->x,p->y,rect.width,rect.height);
-				ofPopStyle();
-				
-				ofPushStyle();
 				ofEnableAlphaBlending();
-//				ofSetColor(255,125);
-//				ofNoFill();
-//				ofRect(p->x,p->y,rect.width,rect.height);
-				
 				if(img!=NULL)
 				{
 					ofSetColor(255,d->alpha);
@@ -254,7 +282,7 @@ public:
 					
 				}
 				
-				if(d->alpha<255)d->alpha+=5;
+				if(d->alpha<255)d->alpha+=15;
 			}
 			i++;
 		}
