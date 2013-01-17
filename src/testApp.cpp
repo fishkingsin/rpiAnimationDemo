@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	glDisable(GL_DEPTH_TEST);
-	ofSetLogLevel(OF_LOG_VERBOSE);
+	ofSetLogLevel(OF_LOG_NOTICE);
 	stateMachine.getSharedData().counter = 0;
 	stateMachine.getSharedData().lastUpdate = ofGetElapsedTimeMillis();
 	stateMachine.getSharedData().font.loadFont("vag.ttf", 50);
