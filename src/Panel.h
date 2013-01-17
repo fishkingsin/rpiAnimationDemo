@@ -107,7 +107,7 @@ public:
 				i++;
 			}
 		}
-		screenRect.set(-270*2,-50,ofGetWidth()+270*2,ofGetHeight()+50);
+		screenRect.set(-270*4,-50,ofGetWidth()+270*8,ofGetHeight()+50);
 		loader.startThread(true, false);
 	}
 	void update(){
@@ -198,7 +198,7 @@ public:
 				ofPushStyle();
 				ofDisableAlphaBlending();
 				ofSetColor(255);
-				thumb->draw(p->x,p->y,rect.width,rect.height);
+				if(thumb->isAllocated())thumb->draw(p->x,p->y,rect.width,rect.height);
 				ofPopStyle();
 				
 				ofPushStyle();
@@ -229,14 +229,15 @@ public:
 	{
 		vector < ImageData*>::iterator it;
 		int i = 0;
+			char name[256];
 		for(it=imagesData.begin() ; it!=imagesData.end() ; it++ )
 		{
 			ImageData* d = *it;
 			
 			ofPoint * p = d->pt;
-			char name[256];
-			sprintf(name,"pano_thumbnail/%04d.jpg",i);
-			getSharedData().turboJpeg.load(name,d->thumb);
+
+//			sprintf(name,"pano_thumbnail/%04d.jpg",i);
+//			getSharedData().turboJpeg.load(name,d->thumb);
 
 			if(screenRect.inside(p->x+dx, p->y) )
 			{
