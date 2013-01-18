@@ -83,7 +83,7 @@ public:
 		int index;
 		LoadType type;
 	};
-	
+	int dir;
 	vector<ImageData*> imagesData;
 	
 	
@@ -91,13 +91,14 @@ public:
 	deque<ImageEntry> ori_images_to_load;
 	void setup()
 	{
-		
+		dir = -1;
 		width = 10800;
 		height = ofGetHeight();
 		rect.width = 270;
 		rect.height = 270;
 		col  =width/rect.width;
 		row  =height/rect.height;
+		
 		int i =0 ;
 		for(int y = 0 ; y < row ; y++)
 		{
@@ -124,9 +125,11 @@ public:
 	void update(){
 		if(getSharedData().enableScreensaver)
 		{
-			dx-=getSharedData().acc;
-			if(dx<-(width-ofGetWidth()))dx= 0;
-
+//			dx-=getSharedData().acc;
+			
+			if(dx < -(width-ofGetWidth())-getSharedData().acc)dir=1;
+			if(dx > getSharedData().acc)dir=-1;
+			dx+= getSharedData().acc*dir;
 		}
 		else{
 			
