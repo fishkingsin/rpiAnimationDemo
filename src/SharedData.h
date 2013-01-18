@@ -51,4 +51,5 @@ public:
 	ofPoint scroll;
 	float spin;
 	ofxTurboJpeg turboJpeg;
+	bool enableScreensaver;
 };

@@ -81,6 +81,12 @@ void testApp::update(){
 		else if(m.getAddress() == "/SCROLLABLE/Y"){
 			stateMachine.getSharedData().scroll.y = m.getArgAsFloat(0);
 		}
+		else if(m.getAddress() == "/ENABLE_SCREENSAVER"){
+			
+			stateMachine.getSharedData().enableScreensaver = m.getArgAsInt32(0);
+		}
+
+		
 		else if(m.getAddress() == "/SPINNER"){
 			
 			stateMachine.getSharedData().spin = m.getArgAsFloat(0);

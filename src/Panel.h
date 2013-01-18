@@ -121,8 +121,15 @@ public:
 		loader.startThread(true, false);
 	}
 	void update(){
-		
-		dx =  getSharedData().spin*-(width-ofGetWidth());
+		if(getSharedData().enableScreensaver)
+		{
+			dx-=ofGetFrameNum()*0.001;
+			if(dx<-(width-ofGetWidth()))dx= 0;
+
+		}
+		else{
+			dx =  getSharedData().spin*-(width-ofGetWidth());
+		}
 		int i = 0 ;
 		vector<ImageData*>::iterator it;
 		
