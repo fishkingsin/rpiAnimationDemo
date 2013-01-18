@@ -53,6 +53,7 @@ public:
 	
 	ofRectangle rect;
 	int col,row;
+
 	ofRectangle screenRect;
 	struct ImageData
 	{
@@ -123,11 +124,12 @@ public:
 	void update(){
 		if(getSharedData().enableScreensaver)
 		{
-			dx-=ofGetFrameNum()*0.001;
+			dx-=getSharedData().acc;
 			if(dx<-(width-ofGetWidth()))dx= 0;
 
 		}
 		else{
+			
 			dx =  getSharedData().spin*-(width-ofGetWidth());
 		}
 		int i = 0 ;

@@ -85,7 +85,10 @@ void testApp::update(){
 			
 			stateMachine.getSharedData().enableScreensaver = m.getArgAsInt32(0);
 		}
-
+		else if(m.getAddress() == "/ACCELERATION"){
+			
+			stateMachine.getSharedData().acc = m.getArgAsFloat(0);
+		}	
 		
 		else if(m.getAddress() == "/SPINNER"){
 			

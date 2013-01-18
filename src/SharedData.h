@@ -52,4 +52,5 @@ public:
 	float spin;
 	ofxTurboJpeg turboJpeg;
 	bool enableScreensaver;
+	float acc;
 };
